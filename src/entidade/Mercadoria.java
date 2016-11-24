@@ -5,9 +5,7 @@
  * 34332 - Pedro Spina Guemureman
  * XXXXX - Nixon Moreira Silva
  */
-package entidades;
-
-import java.util.*;
+package entidade;
 
 public class Mercadoria {
 
@@ -61,7 +59,5 @@ public class Mercadoria {
 
     public void setValor_venda(float valor_venda) {
         this.valor_venda = valor_venda;
-    }
-
-    
+    }   
 }

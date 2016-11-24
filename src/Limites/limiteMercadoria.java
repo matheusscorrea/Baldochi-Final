@@ -10,8 +10,6 @@ package Limites;
 import Controles.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 public class limiteMercadoria extends JFrame implements ActionListener {
@@ -81,7 +79,7 @@ public class limiteMercadoria extends JFrame implements ActionListener {
 
         //Fram
         this.add(pPrincipal);
-        this.setSize(350, 270);
+        this.setSize(400, 270);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -99,7 +97,7 @@ public class limiteMercadoria extends JFrame implements ActionListener {
                 this.dispose();
             
         } catch (NumberFormatException exc) {
-            JOptionPane.showMessageDialog(this, "Um Campo esta vazio");
+            JOptionPane.showMessageDialog(this, "Um campo está vazio!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }

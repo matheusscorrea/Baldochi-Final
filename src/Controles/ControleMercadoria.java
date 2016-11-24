@@ -7,7 +7,7 @@
  */
 package Controles;
 
-import entidades.*;
+import entidade.*;
 import Limites.*;
 import java.util.ArrayList;
 
@@ -26,8 +26,8 @@ public class ControleMercadoria {
     }
 
     public void cadastrarMercadoria(int pCod, int pQt, String pDesc, float pPreco, float pV_venda) throws Exception {
-        if(pDesc.equals("")){
-            throw new Exception("Descricao vazia!");
+        if (pDesc.equals("")) {
+            throw new Exception("Descrição vazia!");
         }
         Mercadoria m = new Mercadoria(pCod, pQt, pDesc, pPreco, pV_venda);
         listaMercadoria.add(m);
@@ -39,24 +39,20 @@ public class ControleMercadoria {
 
     public void verificaCodigo(int pCod) throws Exception {
         boolean achou = false;
-            for (Mercadoria ObjM : listaMercadoria) {
-                if (ObjM.getCod() == pCod) {
-                    achou = true;
-                }
+        for (Mercadoria ObjM : listaMercadoria) {
+            if (ObjM.getCod() == pCod) {
+                achou = true;
             }
-            if(achou == false){
-                throw new Exception("Codigo invalido");
-            }
+        }
+        if (achou == false) {
+            throw new Exception("Código invalido!");
+        }
     }
-    
 
     public void AlteraQtd(int pCod, int pQtd) {
         for (Mercadoria ObjM : listaMercadoria) {
-            System.out.println("entrou aqui");
             if (ObjM.getCod() == pCod) {
-                System.out.println("Quantide: " + ObjM.getQt_disp());
                 ObjM.setQt_disp(ObjM.getQt_disp() + pQtd);  //Altero a qtde
-                System.out.println("Quantide: " + ObjM.getQt_disp());
             }
         }
     }
