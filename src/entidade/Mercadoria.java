@@ -3,15 +3,20 @@
  * Trabalho Final - 28/11/2016
  * 34154 - Matheus Santos Corrêa
  * 34332 - Pedro Spina Guemureman
- * XXXXX - Nixon Moreira Silva
+ * 33672 - Nixon Moreira Silva
  */
 package entidade;
 
-public class Mercadoria {
+import java.util.*;
+import java.io.Serializable;
+
+public class Mercadoria implements Serializable {
 
     private int cod, qt_disp;
     private String descricao;
     private float preco, valor_venda;
+    
+    private int qt_vendida;
 
     public Mercadoria(int pCod, int pQt, String pDesc, float pPreco, float pV_venda) {
         this.cod = pCod;
@@ -19,6 +24,7 @@ public class Mercadoria {
         this.qt_disp = pQt;
         this.preco = pPreco;
         this.valor_venda = pV_venda;
+        this.qt_vendida = 0;
     }
 
     public int getCod() {
@@ -59,5 +65,17 @@ public class Mercadoria {
 
     public void setValor_venda(float valor_venda) {
         this.valor_venda = valor_venda;
-    }   
+    }
+
+    public int get_qt_vendida () {
+        return qt_vendida;
+    }
+    
+    public void add_vendido (int qtd) {
+        this.qt_vendida = this.qt_vendida + qtd;
+    }
+    
+    public void remove_vendido (int qtd) {
+        this.qt_vendida = this.qt_vendida - qtd;
+    }
 }

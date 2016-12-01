@@ -5,30 +5,30 @@
  * 34332 - Pedro Spina Guemureman
  * 33672 - Nixon Moreira Silva
  */
+
 package Controles;
 
 import Limites.limPrincipal;
 
 public class ControlePrincipal {
-
     ControleMercadoria ctrMercadoria;
     ControleCliente ctrCliente;
     ControleNotaFiscal ctrNota;
     limPrincipal limPrinc;
 
-    public ControlePrincipal() {
-
+    public ControlePrincipal(){
+        
         try {
             limPrinc = new limPrincipal(this);
+            ctrCliente = new ControleCliente(this); 
             ctrMercadoria = new ControleMercadoria(this);
-            //ctrNota = new ControleNotaFiscal(this);
-            ctrCliente = new ControleCliente(this);
+            ctrNota = new ControleNotaFiscal(this);
         } catch (Exception e) {
-            System.out.println("Erro");
+            System.out.println (e.getMessage ());
         }
-
+        
     }
-
+    
     public ControleMercadoria getCtrMercadoria() {
         return ctrMercadoria;
     }
@@ -44,16 +44,19 @@ public class ControlePrincipal {
     public limPrincipal getLimPrincipal() {
         return limPrinc;
     }
-
+    
     @Override
-    public void finalize() throws Throwable {
+    public void finalize () throws Throwable {
         try {
-            ctrCliente.finalize();
+            ctrCliente.finalize ();
+            ctrMercadoria.finalize ();
+            ctrNota.finalize ();
         } catch (Exception e) {
-            System.err.println("Erro ao fechar arquivo!");
-        } finally {
+            System.err.println ("Erro ao fechar arquivo!");
+        }
+        finally {
             super.finalize();
         }
     }
-
+    
 }

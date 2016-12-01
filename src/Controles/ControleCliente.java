@@ -26,7 +26,11 @@ public class ControleCliente {
     Cliente clienteObj;
 
     public ControleCliente(ControlePrincipal cp) throws Exception {
-        desserializaCliente();
+        try {
+            desserializaCliente();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         ctrPrincipal = cp;
     }
 
@@ -34,7 +38,7 @@ public class ControleCliente {
         limCliente = new limiteCliente(this, 0);
     }
 
-    public void concluiCadastroCliente(String nome, String email, String cpf, String endereco) {
+    public void concluiCadastroCliente(String nome, String email, String cpf, String endereco) throws Exception {
         clienteObj = new Cliente(nome, email, cpf, endereco);
         listaCliente.add(clienteObj);
     }
@@ -42,11 +46,24 @@ public class ControleCliente {
     public void consultaCliente() {
         limCliente = new limiteCliente(this, 1);
     }
+    
+    public void consultaFaturamento() {
+        limCliente = new limiteCliente(this, 2);
+    }
 
     public String concluiConsultaCliente(String cpf) throws Exception {
         for (Cliente c : listaCliente) {
             if (cpf.equals(c.getCpf())) {
                 return c.getNome() + "\n" + c.getEndereco() + "\n" + c.getEmail();
+            }
+        }
+        throw new Exception("Cliente com CPF inserido não encontrado!");
+    }
+
+    public String concluiConsultaFaturamento(String cpf) throws Exception {
+        for(Cliente c : listaCliente) {
+            if (cpf.equals(c.getCpf())) {
+                return c.getNome() + "\n" + ctrPrincipal.ctrNota.calculaFaturamento(cpf);
             }
         }
         throw new Exception("Cliente com CPF inserido não encontrado!");
@@ -67,6 +84,8 @@ public class ControleCliente {
             ObjectInputStream objIS = new ObjectInputStream(objFileIS);
             listaCliente = (ArrayList) objIS.readObject();
             objIS.close();
+        } else {
+            throw new Exception("Dados de clientes não encontrados!");
         }
     }
 
@@ -74,9 +93,22 @@ public class ControleCliente {
         try {
             serializaCliente();
         } catch (Exception e) {
-            System.out.println("Lol");
+            System.out.println("Erro na serialização de Clientes");
         } finally {
             super.finalize();
         }
+    }
+
+    public ArrayList<Cliente> getListaCliente() {
+        return listaCliente;
+    }
+
+    public boolean validaCPF(String pCPF) {
+        for (Cliente c : listaCliente) {
+            if (pCPF.equals(c.getCpf())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

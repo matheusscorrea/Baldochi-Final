@@ -7,7 +7,7 @@
  */
 package Limites;
 
-import Controles.ControleCliente;
+import Controles.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -15,7 +15,7 @@ import javax.swing.*;
 public class limiteCliente extends JFrame implements ActionListener {
 
     ControleCliente ctrCliente;
-
+    
     // Elementos - Cadastro
     JPanel painelNome, painelEndereco, painelEmail, painelCPF, pBtn, pPrincipal;
     JTextField txt_nome, txt_endereco, txt_email, txt_cpf;
@@ -26,6 +26,11 @@ public class limiteCliente extends JFrame implements ActionListener {
     JPanel painelTexto;
     JTextArea txt_resultados;
     JButton btnConsulta, btnFechar;
+    
+    //Elementos - Consulta Faturamento
+    JPanel painelTexto1;
+    JTextArea txt_resultados_faturamento;
+    JButton btnConsultaFaturamento, btnFecharFaturamento;
 
     public limiteCliente(ControleCliente controle, int operacao) {
         super("Cliente");
@@ -36,6 +41,8 @@ public class limiteCliente extends JFrame implements ActionListener {
         btnCadastra.addActionListener(this);
         btnConsulta = new JButton("Consulta");
         btnConsulta.addActionListener(this);
+        btnConsultaFaturamento = new JButton("Consulta Faturamento");
+        btnConsultaFaturamento.addActionListener(this);
         btnFechar = new JButton("Fechar");
 
         btnFechar.addActionListener(this);
@@ -110,7 +117,34 @@ public class limiteCliente extends JFrame implements ActionListener {
             pPrincipal.add(painelCPF);
             pPrincipal.add(painelTexto);
             pPrincipal.add(pBtn);
+        } else if(operacao == 2) {
+            pPrincipal = new JPanel(new GridLayout(3, 1));
+            painelCPF = new JPanel();
+            painelCPF.setLayout(new FlowLayout());
+            painelTexto1 = new JPanel();
+            painelTexto1.setLayout(new FlowLayout());
+            pBtn = new JPanel();
+
+            //Labeis
+            lCpf = new JLabel("CPF:");
+
+            // Campo de Texto
+            txt_cpf = new JTextField(15);
+
+            // Área de Texto
+            txt_resultados_faturamento = new JTextArea(10, 20);
+
+            // Adição aos Painéis
+            painelCPF.add(lCpf);
+            painelCPF.add(txt_cpf);
+            painelTexto1.add(txt_resultados_faturamento);
+            pBtn.add(btnConsultaFaturamento);
+            pBtn.add(btnFechar);
+            pPrincipal.add(painelCPF);
+            pPrincipal.add(painelTexto1);
+            pPrincipal.add(pBtn);
         }
+        
         //Frame
         this.add(pPrincipal);
         this.setSize(290, 270);
@@ -122,9 +156,13 @@ public class limiteCliente extends JFrame implements ActionListener {
     }
 
     public void cadastrarCliente() {
-        ctrCliente.concluiCadastroCliente(txt_nome.getText(), txt_email.getText(), txt_cpf.getText(),
-                txt_endereco.getText());
-        JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+        try {
+            ctrCliente.concluiCadastroCliente(txt_nome.getText(), txt_email.getText(), txt_cpf.getText(),
+                    txt_endereco.getText());
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         this.dispose();
     }
 
@@ -138,7 +176,18 @@ public class limiteCliente extends JFrame implements ActionListener {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
+    }
+    
+    public void consultarFaturamento() {
+        String dados;
+        try {
+            dados = ctrCliente.concluiConsultaFaturamento(txt_cpf.getText());
+            txt_resultados_faturamento.setText(dados);
+            this.revalidate();
+            this.repaint();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
     @Override
@@ -147,9 +196,10 @@ public class limiteCliente extends JFrame implements ActionListener {
             cadastrarCliente();
         } else if (e.getSource() == btnConsulta) {
             consultarCliente();
+        } else if (e.getSource() == btnConsultaFaturamento) {
+            consultarFaturamento();
         } else if (e.getSource() == btnFechar) {
             this.dispose();
         }
     }
-
 }

@@ -1,8 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * COM220 - Programação Orientada a Objetos I
+ * Trabalho Final - 28/11/2016
+ * 34154 - Matheus Santos Corrêa
+ * 34332 - Pedro Spina Guemureman
+ * 33672 - Nixon Moreira Silva
  */
+
+/*
 package Limites;
 
 import Controles.ControleMercadoria;
@@ -20,10 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Pedro
- */
 public class limiteEstoque extends JFrame implements ActionListener {
 
     ControleMercadoria ctrMerc;
@@ -34,7 +34,7 @@ public class limiteEstoque extends JFrame implements ActionListener {
     JLabel lcod, lestoque;
     JTextField txt_cod, txt_qtd;
 
-    public limiteEstoque(ControleMercadoria cm) {
+    public limiteEstoque(ControleMercadoria cm, int operacao) {
         super("Estoque");
         ctrMerc = cm;
 
@@ -44,7 +44,6 @@ public class limiteEstoque extends JFrame implements ActionListener {
 
         lcod = new JLabel("Codigo da mercadoria:");
         txt_cod = new JTextField(15);
-
 
         btn_procura = new JButton("Procurar");
 
@@ -113,3 +112,4 @@ public class limiteEstoque extends JFrame implements ActionListener {
     }
 
 }
+*/

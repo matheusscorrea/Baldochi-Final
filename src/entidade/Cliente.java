@@ -10,10 +10,10 @@ package entidade;
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
+    private String Nome, email,cpf, endereco;
 
-    private String Nome, email, cpf, endereco;
-
-    public Cliente(String pNome, String pEmail, String pCpf, String pEndereco) {
+    
+    public Cliente(String pNome, String pEmail, String pCpf, String pEndereco){
         this.Nome = pNome;
         this.cpf = pCpf;
         this.email = pEmail;
@@ -51,4 +51,6 @@ public class Cliente implements Serializable {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+    
+    
 }
